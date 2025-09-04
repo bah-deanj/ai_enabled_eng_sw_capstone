@@ -1,0 +1,92 @@
+[
+  {
+    "id": "US001",
+    "user_story": "As Emily Johnson, I want a customizable onboarding checklist, so that I can ensure I complete all essential tasks during my onboarding process.",
+    "persona": "Emily Johnson",
+    "acceptance_criteria": [
+      "Given I am a new hire, when I access the onboarding tool, then I should see a customizable checklist with essential tasks.",
+      "Given I have completed a task, when I mark it as complete, then it should be reflected in my checklist progress."
+    ]
+  },
+  {
+    "id": "US002",
+    "user_story": "As David Lee, I want access to technical documentation and coding standards, so that I can align with the company's development workflow.",
+    "persona": "David Lee",
+    "acceptance_criteria": [
+      "Given I am a software developer, when I access the resource library, then I should find technical documentation and coding standards specific to the company.",
+      "Given I am reviewing a document, when I have questions, then I should be able to find answers in the FAQ section."
+    ]
+  },
+  {
+    "id": "US003",
+    "user_story": "As Sarah Martinez, I want insights into company culture and HR protocols, so that I can effectively integrate and contribute to my team.",
+    "persona": "Sarah Martinez",
+    "acceptance_criteria": [
+      "Given I am an HR specialist, when I access the training modules, then I should find courses on company culture and HR protocols.",
+      "Given I have completed a training module, when I take a quiz, then I should receive feedback on my understanding."
+    ]
+  },
+  {
+    "id": "US004",
+    "user_story": "As Emily Johnson, I want interactive tutorials for marketing tools, so that I can quickly familiarize myself with the company's marketing strategies.",
+    "persona": "Emily Johnson",
+    "acceptance_criteria": [
+      "Given I am a marketing coordinator, when I access interactive tutorials, then I should find step-by-step guides for marketing tools.",
+      "Given I complete a tutorial, when I finish, then I should see my progress updated in the dashboard."
+    ]
+  },
+  {
+    "id": "US005",
+    "user_story": "As David Lee, I want a mentorship program matching feature, so that I can connect with experienced developers in the company.",
+    "persona": "David Lee",
+    "acceptance_criteria": [
+      "Given I am a new hire, when I access the mentorship program, then I should be able to find potential mentors based on my role and interests.",
+      "Given I have selected a mentor, when the mentor accepts, then I should receive a notification confirming the match."
+    ]
+  },
+  {
+    "id": "US006",
+    "user_story": "As Sarah Martinez, I want a progress tracking dashboard, so that I can monitor my onboarding tasks and training progress.",
+    "persona": "Sarah Martinez",
+    "acceptance_criteria": [
+      "Given I am an HR specialist, when I access the dashboard, then I should see a visual representation of my onboarding task completion and training progress.",
+      "Given I complete a task or module, when I update my status, then the dashboard should reflect the changes."
+    ]
+  },
+  {
+    "id": "US007",
+    "user_story": "As Emily Johnson, I want a virtual tour of the company, so that I can familiarize myself with the physical and digital environments.",
+    "persona": "Emily Johnson",
+    "acceptance_criteria": [
+      "Given I am a new hire, when I start the virtual tour, then I should be guided through the company's physical and digital environments.",
+      "Given I complete the tour, when I finish, then I should have an option to revisit specific sections."
+    ]
+  },
+  {
+    "id": "US008",
+    "user_story": "As David Lee, I want integration with company communication tools, so that I can seamlessly interact with my team.",
+    "persona": "David Lee",
+    "acceptance_criteria": [
+      "Given I am a software developer, when I use the onboarding tool, then it should integrate with Slack or Microsoft Teams for communication.",
+      "Given I receive a message, when I reply, then it should be sent through the integrated communication platform."
+    ]
+  },
+  {
+    "id": "US009",
+    "user_story": "As Sarah Martinez, I want a social networking feature, so that I can network with peers and other employees.",
+    "persona": "Sarah Martinez",
+    "acceptance_criteria": [
+      "Given I am an HR specialist, when I access the social networking feature, then I should be able to connect with peers and other employees.",
+      "Given I send a connection request, when it is accepted, then I should receive a notification."
+    ]
+  },
+  {
+    "id": "US010",
+    "user_story": "As Emily Johnson, I want a mobile app version of the onboarding tool, so that I can access onboarding materials on-the-go.",
+    "persona": "Emily Johnson",
+    "acceptance_criteria": [
+      "Given I am a new hire, when I download the mobile app, then I should have access to all onboarding materials.",
+      "Given I complete a task on the mobile app, when I sync, then it should update my progress across all platforms."
+    ]
+  }
+]

@@ -1,19 +1,17 @@
 ```markdown
-# Architecture Decision Record: [Title]
+# [Title]
 
-**Status:** [Proposed | Accepted | Deprecated | Superseded]
+**Status:** [Proposed | Accepted | Deprecated]
 
 ## Context
-- Problem: [Describe the problem.]
-- Driving forces: [Key goals, quality attributes, stakeholders, deadlines.]
-- Constraints: [Technical, organizational, legal, budget, legacy, etc.]
+
+_What is the problem being addressed? What are the forces or concerns influencing this decision? Provide background, constraints, and any relevant context._
 
 ## Decision
-- [State the chosen solution clearly and concisely.]
-- Rationale: [Why this option over others; key trade-offs considered.]
+
+_What is the chosen solution and why? Describe the decision made, including any alternatives considered and the reasoning behind the choice._
 
 ## Consequences
-- Positive outcomes: [Benefits and desired results.]
-- Negative trade-offs: [Costs, risks, compromises, new limitations.]
-- Future work: [Follow-ups, migration/cleanup tasks, monitoring, review date.]
+
+_What are the results of this decision? List both the positive and negative outcomes, and any follow-up actions required._
 ```

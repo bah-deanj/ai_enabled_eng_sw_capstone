@@ -1,9 +1,16 @@
-INSERT INTO users (user_id, full_name, email, user_role) VALUES (1, 'Emily Johnson', 'emily.j@example.com', 'Marketing Coordinator'), (2, 'David Lee', 'david.l@example.com', 'Software Developer'), (3, 'Sarah Martinez', 'sarah.m@example.com', 'HR Specialist'), (4, 'Michael Brown', 'michael.b@example.com', 'Senior Software Developer');
-INSERT INTO onboarding_tasks (task_id, title, description, category) VALUES (1, 'Complete HR Paperwork', 'Fill out and submit all required HR forms, including W-4 and I-9.', 'HR'), (2, 'Review Marketing Tool Stack', 'Familiarize yourself with HubSpot and Google Analytics.', 'Team-specific'), (3, 'Set Up Local Development Environment', 'Follow the guide to install and configure your local dev environment.', 'IT');
-INSERT INTO resources (resource_id, title, resource_type, content_url, description) VALUES (1, 'Interactive Tutorials for Marketing Tools', 'Tutorial', 'https://example.com/tutorials/marketing', 'Step-by-step guides for getting started with the company''s marketing tools.'), (2, 'Company Coding Standards', 'Documentation', 'https://internal.docs.example.com/coding-standards', 'Official documentation on company-specific coding standards and best practices.'), (3, 'Company Culture and HR Protocols', 'Training Module', 'https://learn.example.com/courses/culture', 'A training module covering our core values and essential HR protocols.');
-INSERT INTO user_onboarding_checklists (user_id, task_id, status, completed_at) VALUES (1, 1, 'completed', '2023-10-26 10:00:00'), (1, 2, 'pending', NULL), (2, 3, 'pending', NULL);
-INSERT INTO user_resource_progress (user_id, resource_id, status, completed_at, last_accessed_at) VALUES (1, 1, 'in_progress', NULL, '2023-10-27 11:00:00'), (2, 2, 'completed', '2023-10-27 14:30:00', '2023-10-27 14:30:00'), (3, 3, 'completed', '2023-10-25 15:00:00', '2023-10-25 15:00:00');
-INSERT INTO quizzes (quiz_id, resource_id, title) VALUES (1, 3, 'Company Culture & HR Protocols Quiz');
-INSERT INTO user_quiz_attempts (user_id, quiz_id, score, feedback, attempted_at) VALUES (3, 1, 95.0, 'Excellent understanding of our company values and protocols.', '2023-10-25 15:15:00');
-INSERT INTO mentorships (mentor_id, mentee_id, status, requested_at, accepted_at) VALUES (4, 2, 'accepted', '2023-10-26 16:00:00', '2023-10-27 09:00:00');
-INSERT INTO social_connections (requester_id, addressee_id, status, created_at, updated_at) VALUES (1, 3, 'accepted', '2023-10-26 10:15:00', '2023-10-26 10:20:00');
+INSERT INTO users (username, email, password_hash) VALUES
+	('alice', 'alice@example.com', 'hash1'),
+	('bob', 'bob@example.com', 'hash2'),
+	('carol', 'carol@example.com', 'hash3');
+
+-- Recipes (ingredients as JSON string)
+INSERT INTO recipes (user_id, title, description, instructions, ingredients) VALUES
+	(1, 'Classic Pancakes', 'Fluffy pancakes perfect for breakfast.', '1. Mix dry ingredients. 2. Add wet ingredients. 3. Cook on griddle.',
+	 '[{"name": "Eggs", "quantity": "2"}, {"name": "Flour", "quantity": "1.5 cups"}, {"name": "Milk", "quantity": "1 cup"}, {"name": "Sugar", "quantity": "2 tbsp"}, {"name": "Salt", "quantity": "1/2 tsp"}, {"name": "Butter", "quantity": "2 tbsp"}]'),
+	(2, 'Garlic Chicken', 'Simple garlic chicken breast.', '1. Season chicken. 2. Sauté garlic in oil. 3. Cook chicken until done.',
+	 '[{"name": "Chicken Breast", "quantity": "2 breasts"}, {"name": "Olive Oil", "quantity": "2 tbsp"}, {"name": "Garlic", "quantity": "3 cloves"}, {"name": "Salt", "quantity": "1/4 tsp"}]');
+
+-- User Favorites
+INSERT INTO user_favorites (user_id, recipe_id) VALUES
+	(1, 2), -- Alice likes Garlic Chicken
+	(2, 1); -- Bob likes Pancakes

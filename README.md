@@ -16,6 +16,10 @@
 1. To start, run:  ```.venv\scripts\Activate```
 1. After starting, run ```pip install -r requirements.txt```
 
+### Initialize Database (recipes.db)
+sqlite3 ./artifacts/recipes.db ".read artifacts/schema.sql"                             
+sqlite3 ./artifacts/recipes.db ".read artifacts/seed_data.sql"
+
 ## Running Application ( Dockerfile - TBD)
 TBD
 

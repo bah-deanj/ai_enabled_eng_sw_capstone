@@ -1,0 +1,89 @@
+[
+  {
+    "id": "1",
+    "persona": "Busy Professional",
+    "user_story": "As a busy professional, I want to quickly input the ingredients I have (by typing or scanning), so I can get recipe suggestions without wasting time.",
+    "acceptance_criteria": [
+      "Given I have ingredients at home, When I open the app, Then I can manually enter or scan/barcode my ingredients into my pantry list.",
+      "Given I have scanned or entered ingredients, When I view my pantry, Then I see an updated list of available items."
+    ]
+  },
+  {
+    "id": "2",
+    "persona": "Busy Professional",
+    "user_story": "As a busy professional, I want to receive recipe suggestions based on my available ingredients, so I can make quick meals without extra shopping.",
+    "acceptance_criteria": [
+      "Given I have entered my available ingredients, When I request recipe suggestions, Then I see a list of recipes I can make with what I have.",
+      "Given I have limited time, When I filter recipes by cooking time, Then I only see recipes that fit my schedule."
+    ]
+  },
+  {
+    "id": "3",
+    "persona": "Busy Professional",
+    "user_story": "As a busy professional, I want to filter recipes by dietary preferences, so I only see recipes that match my needs (e.g., vegetarian, gluten-free).",
+    "acceptance_criteria": [
+      "Given I have set my dietary preferences, When I view recipe suggestions, Then only recipes matching my preferences are shown."
+    ]
+  },
+  {
+    "id": "4",
+    "persona": "College Student",
+    "user_story": "As a college student, I want to get creative, low-cost recipe ideas using a small selection of ingredients, so I can eat well on a budget.",
+    "acceptance_criteria": [
+      "Given I have entered a few ingredients, When I request recipes, Then I see affordable recipes that use minimal and common ingredients.",
+      "Given I have a limited budget, When I view recipe details, Then I can see estimated cost per serving."
+    ]
+  },
+  {
+    "id": "5",
+    "persona": "College Student",
+    "user_story": "As a college student, I want to see suggested substitutions for missing ingredients, so I can still make recipes even if I don\u2019t have everything.",
+    "acceptance_criteria": [
+      "Given I am viewing a recipe, When I am missing an ingredient, Then the app suggests possible substitutions based on what I have."
+    ]
+  },
+  {
+    "id": "6",
+    "persona": "College Student",
+    "user_story": "As a college student, I want to save my favorite recipes, so I can easily find and cook them again.",
+    "acceptance_criteria": [
+      "Given I find a recipe I like, When I tap 'Save', Then the recipe is added to my favorites list.",
+      "Given I open my favorites, When I select a recipe, Then I can view its details and instructions."
+    ]
+  },
+  {
+    "id": "7",
+    "persona": "Family Caregiver",
+    "user_story": "As a family caregiver, I want to manage my pantry inventory, so I can keep track of what I have and reduce food waste.",
+    "acceptance_criteria": [
+      "Given I add or remove items from my pantry, When I view my inventory, Then it accurately reflects what is available.",
+      "Given items are nearing expiration, When I open the app, Then I receive notifications or suggestions to use them soon."
+    ]
+  },
+  {
+    "id": "8",
+    "persona": "Family Caregiver",
+    "user_story": "As a family caregiver, I want to plan meals for the week and generate a shopping list for missing ingredients, so I can organize family meals and minimize store trips.",
+    "acceptance_criteria": [
+      "Given I select recipes for the week, When I view my meal plan, Then I see a calendar with scheduled meals.",
+      "Given I have planned meals, When I generate a shopping list, Then the app lists only the ingredients I need to buy."
+    ]
+  },
+  {
+    "id": "9",
+    "persona": "Family Caregiver",
+    "user_story": "As a family caregiver, I want to filter recipes by allergens and see warnings, so I can keep my family safe.",
+    "acceptance_criteria": [
+      "Given I set allergen preferences, When I browse recipes, Then recipes containing allergens are hidden or clearly marked.",
+      "Given I view a recipe, When it contains a flagged allergen, Then I see a warning message."
+    ]
+  },
+  {
+    "id": "10",
+    "persona": "Family Caregiver",
+    "user_story": "As a family caregiver, I want to adjust portion sizes in recipes, so I can cook the right amount for my family.",
+    "acceptance_criteria": [
+      "Given I select a recipe, When I adjust the number of servings, Then ingredient quantities update automatically."
+    ]
+  }
+]

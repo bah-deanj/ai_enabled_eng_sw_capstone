@@ -55,7 +55,7 @@ docker-compose up --build
 |--------------|-----------------------------|
 | Environment  | Python (venv)               |
 | Location     | `./app/agent/` folder       |
-| Run Command  | `python app\agent\rag_agent.py` |
+| Run Command  | Can run through FastAPI Endpoint (Labelled RAG) |
 
 | File Descriptions   |   |
 |---------------------|-----------------------------|
@@ -69,12 +69,15 @@ docker-compose up --build
 
 | File Descriptions   |   |
 |---------------------|-----------------------------|
-| adr_001_database_choice.md | Database choice architectural decision record |
-| day1_prd.md               | Product requirements document for Day 1        |
-| day1_user_stories.json    | User stories for Day 1                         |
-| design_review.md          | Design review notes                            |
-| onboarding.db             | SQLite onboarding database                     |
-| schema.sql                | SQL schema for onboarding.db                   |
-| seed_data.sql             | Seed data for onboarding.db                    |
+| adr_database_choice_recipies.md | Database choice architectural decision record |
+| prd_recipies.md               | Product requirements document for RecipeShare |
+| user_stories_recipies.json    | User stories for RecipeShare                 |
+| design_review.md              | Design review notes                          |
+| recipes.db                    | SQLite database for recipes (used by app, located in artifacts/) |
+| schema.sql                    | SQL schema for recipes.db                    |
+| seed_data.sql                 | Seed data for recipes.db                     |
+| schema_old.sql                | (Legacy) SQL schema for onboarding.db        |
+
+Additional artifacts, documentation, and code (e.g., validation models, tests, screenshots, and Jupyter notebooks) are present in subfolders of `./artifacts/`.
 
 

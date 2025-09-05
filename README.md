@@ -16,7 +16,8 @@
 1. To start, run:  ```.venv\scripts\Activate```
 1. After starting, run ```pip install -r requirements.txt```
 
-## Running (TBD)
+## Running Application ( Dockerfile - TBD)
+TBD
 
 ## Component Structure and Descriptions
 ### Frontend Details

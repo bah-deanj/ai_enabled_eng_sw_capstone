@@ -43,7 +43,7 @@ TBD
 |---------------|---------------------|
 | Environment   | Python (venv)       |
 | Location      | `./app/` folder     |
-| Run Command   | ```python ./app/main.py```  |
+| Run Command   | ```uvicorn app.main:app --reload ```  |
 | Visible at    | http://127.0.0.1:8000/docs |
 
 | File Descriptions   |   |

@@ -1,63 +1,75 @@
-// day8_login_final.jsx
-// Cleaned up design and text for onboarding dashboard
+// Recipe Generator App (single file, clean UI)
 
-// Utility: MaterialIconWithLabel
-const MaterialIconWithLabel = ({ icon, text }) => (
-  <>
-    <span className="material-icons align-middle">{icon}</span>
-    <span className="mx-2 align-middle font-semibold">{text}</span>
-  </>
-);
+const RecipeGenerator = () => {
+  const [ingredients, setIngredients] = React.useState("");
+  const [recipes, setRecipes] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
 
-// Sidebar navigation for PRD sections
-const PRD_SECTIONS = [
-  { label: "Onboarding", tooltip: "Onboarding Experience", icon: "assignment" },
-  { label: "Progress", tooltip: "Progress Dashboard", icon: "trending_up" },
-  { label: "Mentorship", tooltip: "Mentorship Program", icon: "group" },
-  { label: "Social", tooltip: "Social Networking", icon: "people" },
-];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setRecipes([]);
+    try {
+      const resp = await fetch("/generate_recipes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ingredients }),
+      });
+      if (!resp.ok) throw new Error("Failed to fetch recipes");
+      const data = await resp.json();
+      setRecipes(data.recipes || []);
+    } catch (err) {
+      setError("Could not generate recipes. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const SidebarItem = ({ label, icon, active, onClick, tooltip }) => (
-  <button
-    className={`flex flex-col items-center w-16 py-2 rounded-lg transition group focus:outline-none ${active ? 'bg-blue-100 shadow border-blue-600 border' : 'hover:bg-gray-100'} mb-2`}
-    onClick={onClick}
-    title={tooltip}
-    aria-label={label}
-  >
-    <span className={`material-icons ${active ? 'text-blue-600' : 'text-gray-400'} mb-1`} style={{ fontSize: '1.7rem' }}>{icon}</span>
-    <span className={`text-xs font-medium ${active ? 'text-blue-700' : 'text-gray-500'}`}>{label}</span>
-  </button>
-);
-
-const ProfileSidebar = ({ activeSection, setActiveSection }) => (
-  <aside className="w-24 bg-white border-r p-4 flex flex-col items-center shadow-sm">
-    <div className="bg-blue-500 p-3 rounded-full mb-6">
-      <span className="material-icons text-white">account_circle</span>
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-white px-4">
+      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-xl flex flex-col items-center">
+        <h1 className="text-3xl font-bold text-blue-800 mb-2 text-center">AI Recipe Generator</h1>
+        <p className="text-gray-600 mb-6 text-center">Enter your available ingredients and get delicious recipe ideas instantly!</p>
+        <form className="w-full" onSubmit={handleSubmit}>
+          <textarea
+            className="w-full p-3 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4 resize-none text-gray-800"
+            rows={3}
+            placeholder="e.g. chicken, rice, broccoli, garlic"
+            value={ingredients}
+            onChange={e => setIngredients(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition text-lg shadow"
+            disabled={loading}
+          >
+            {loading ? "Generating..." : "Generate Recipes"}
+          </button>
+        </form>
+        {error && <div className="text-red-500 mt-4">{error}</div>}
+        <div className="mt-8 w-full">
+          {recipes.length > 0 && (
+            <>
+              <h2 className="text-xl font-bold text-blue-700 mb-4">Recipe Suggestions</h2>
+              <ul className="space-y-6">
+                {recipes.map((r, i) => (
+                  <li key={i} className="bg-blue-50 rounded-lg p-4 shadow border border-blue-100">
+                    <h3 className="font-semibold text-blue-800 mb-2">{r.title || `Recipe ${i+1}`}</h3>
+                    <div className="text-gray-700 whitespace-pre-line">{r.instructions || r}</div>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </div>
+      <footer className="mt-8 text-gray-400 text-xs">&copy; {new Date().getFullYear()} AI Recipe Generator</footer>
     </div>
-    <nav className="flex flex-col items-center mt-4">
-      {PRD_SECTIONS.map((section, idx) => (
-        <SidebarItem
-          key={section.label}
-          label={section.label}
-          icon={section.icon}
-          active={activeSection === idx}
-          onClick={() => setActiveSection(idx)}
-          tooltip={section.tooltip}
-        />
-      ))}
-    </nav>
-  </aside>
-);
-
-// WelcomeHeader Component
-const WelcomeHeader = () => (
-  <header className="flex items-center justify-between mb-8">
-    <h1 className="text-3xl font-bold text-blue-900">Welcome, Sentient Shark!</h1>
-    <div className="bg-white p-2 rounded-full shadow">
-      <span className="material-icons text-blue-500">settings</span>
-    </div>
-  </header>
-);
+  );
+};
 
 // OnboardingTaskItem Component
 const OnboardingTaskItem = ({ text, checked = false, date, dateColor }) => {
@@ -247,52 +259,8 @@ const OnboardingCardsPanel = () => {
   );
 };
 
-// MainDashboardLayout with PRD section navigation
-const MainDashboardLayout = () => {
-  const [activeSection, setActiveSection] = React.useState(0);
-
-  let mainContent;
-  switch (activeSection) {
-    case 0:
-      mainContent = <OnboardingCardsPanel />;
-      break;
-    case 1:
-      mainContent = <OnboardingOverviewCard />;
-      break;
-    case 2:
-      mainContent = (
-        <section className="bg-white rounded-lg shadow-md p-6 w-80">
-          <h2 className="font-bold text-lg mb-3 text-blue-900">Mentorship Program</h2>
-          <p className="mb-2 text-gray-700">Connect with experienced mentors based on your role and interests.</p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 mt-2 transition">Find a Mentor</button>
-        </section>
-      );
-      break;
-    case 3:
-      mainContent = (
-        <section className="bg-white rounded-lg shadow-md p-6 w-80">
-          <h2 className="font-bold text-lg mb-3 text-blue-900">Social Networking</h2>
-          <p className="mb-2 text-gray-700">Connect with peers and other employees.</p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 mt-2 transition">Network Now</button>
-        </section>
-      );
-      break;
-    default:
-      mainContent = <OnboardingCardsPanel />;
-  }
-
-  return (
-    <div className="flex min-h-screen bg-blue-100">
-      <ProfileSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
-      <div className="flex-1 flex flex-col p-8">
-        <WelcomeHeader />
-        <div className="flex justify-center items-start">
-          {mainContent}
-        </div>
-      </div>
-    </div>
-  );
-};
+// Main app layout: show RecipeGenerator after login
+const MainApp = () => <RecipeGenerator />;
 
 
 // LoginScreen Component
@@ -380,7 +348,7 @@ const LoginScreen = ({ onLogin }) => {
 // App Component to handle login state
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
-  return loggedIn ? <MainDashboardLayout /> : <LoginScreen onLogin={() => setLoggedIn(true)} />;
+  return loggedIn ? <MainApp /> : <LoginScreen onLogin={() => setLoggedIn(true)} />;
 };
 
 const container = document.getElementById('root');

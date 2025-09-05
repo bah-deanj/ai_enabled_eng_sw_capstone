@@ -1,4 +1,4 @@
-# Capstone (AI Enabled SW Engineering)
+# Capstone (AI Enabled SW Engineering) - Recipe Generator
 ## Setup
 ### Clone the Repository
 1. Create a new window in VSCode
@@ -20,8 +20,8 @@
 sqlite3 ./artifacts/recipes.db ".read artifacts/schema.sql"                             
 sqlite3 ./artifacts/recipes.db ".read artifacts/seed_data.sql"
 
-## Running Application ( Dockerfile - TBD)
-TBD
+## Running Application ( Dockerfile - TBD - Don't think this works)
+docker-compose up --build
 
 ## Component Structure and Descriptions
 ### Frontend Details

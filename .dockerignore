@@ -1,3 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+!artifacts/recipes.db
+*.sqlite3
+.env
+node_modules/
+build/
+dist/
+frontend/build/
+.DS_Store
+.git
+.gitignore
 .git
 .venv
 __pycache__
@@ -7,7 +21,6 @@ Solutions/
 Supporting Materials/
 .DS_Store
 Daily agenda.ipynb
-artifacts/
 tests/
 .ipynb_checkpoints
 .vscode

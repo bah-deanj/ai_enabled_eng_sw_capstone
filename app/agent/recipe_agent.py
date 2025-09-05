@@ -120,29 +120,41 @@ def create_recipe_agent():
     rag_agent = agent_graph.compile()
     return rag_agent
 
+class RecipeRAGAgent(RAGAgent):
+    def __init__(self, model_name="gpt-4.1"):
+        ingredients = "apples, banannas, mangos"
+
+        agent = RAGAgent(get_recipe_knowledge(), create_recipe_agent(), model_name = "gpt-4.1")
+        num_recipes = 3
+
+        role_prompt = f"""You are a professional chef that suggests recipes based on web search results and a provided list of ingredients.
+        Assist the user with their queries.
+        """
+        cook_agent = ExtendedKnowledgeAgent(role=role_prompt, model="gpt-4.1", num_results=num_recipes+2)
+
+        self.initial_recipe_state = RecipeAgentState(
+            cook_agent=cook_agent,
+            coding_agent=agent.agentInfo,
+            ingredients=ingredients,
+            num_recipes=num_recipes,
+            code_files=[],
+            answer="",
+            recipe_list=[]
+        )
+    def query(self, ingredients:str, num_recipes:int=3) -> List[dict]:
+        recipe_state = self.initial_recipe_state
+        recipe_state["ingredients"] = ingredients
+        recipe_state["num_recipes"] = num_recipes
+        return self.agent.dict_query(recipe_state, key="recipe_list")
+
+
+
 
 if __name__ == "__main__":
     # Example usage:
-    ingredients = "apples, banannas, mangos"
-
-    agent = RAGAgent(get_recipe_knowledge(), create_recipe_agent(), model_name = "gpt-4.1")
-    num_recipes = 3
-
-    role_prompt = f"""You are a professional chef that suggests recipes based on web search results and a provided list of ingredients.
-    Assist the user with their queries.
-    """
-    cook_agent = ExtendedKnowledgeAgent(role=role_prompt, model="gpt-4.1", num_results=num_recipes+2)
-
-    recipe_state = RecipeAgentState(
-        cook_agent=cook_agent,
-        coding_agent=agent.agentInfo,
-        ingredients=ingredients,
-        num_recipes=num_recipes,
-        code_files=[],
-        answer="",
-        recipe_list=[]
-    )
-    answer = agent.dict_query(recipe_state, key="recipe_list")
+    recipe_agent = RecipeRAGAgent()
+    ingredients = "chicken, rice, broccoli"
+    answer = recipe_agent.query(ingredients)
 
     if answer:
         print(answer)

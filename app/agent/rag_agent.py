@@ -5,8 +5,8 @@ from langgraph.graph import StateGraph
 from langchain_core.documents import Document
 
 
-from knowledge_base import *
-from utils import setup_llm_client
+from app.agent.knowledge_base import *
+from app.agent.utils import setup_llm_client
 
 # Add the project's root directory to the Python path
 def install_if_missing(package):
@@ -35,7 +35,7 @@ class AgentInfo:
 
 
 class RAGAgent:
-    def __init__(self, knowledge_base, agent):
+    def __init__(self, knowledge_base, agent, model_name="gpt-4.1"):
         # Robust project root detection: always points to workspace root
         # This assumes this file is in <workspace>/app/agent.py
         install_if_missing('langgraph')
@@ -44,8 +44,10 @@ class RAGAgent:
         install_if_missing('langchain_openai')
         install_if_missing('faiss-cpu')
         install_if_missing('pypdf')
+        install_if_missing('langchain')
+        install_if_missing('tavily')
 
-        client, model_name, api_provider = setup_llm_client(model_name="gpt-4.1")
+        client, model_name, api_provider = setup_llm_client(model_name=model_name)
         self.agentInfo = AgentInfo(client, model_name, api_provider)
 
         # TODO: Update this based on project needs
@@ -55,10 +57,18 @@ class RAGAgent:
 
         self.graph = agent
 
-    def query(self, question):
+    def query(self, question, key="answer"):
+        
         result = self.graph.invoke({"question": question, "documents": [], "answer": "", "agent": self.agentInfo})
-        if (result and result["answer"]):
-            return result["answer"]
+        if (result and result[key]):
+            return result[key]
+        else:
+            return ""
+    
+    def dict_query(self, query_dict: any, key="answer"):
+        result = self.graph.invoke(query_dict)
+        if (result and result[key]):
+            return result[key]
         else:
             return ""
 
@@ -70,7 +80,7 @@ if __name__ == "__main__":
     question = "What is the user class composed of?"
     # question = "How old am I?"
 
-    agent = RAGAgent(get_pm_knowledge(), create_pm_agent())
+    agent = RAGAgent(get_pm_knowledge(), create_pm_agent(), model = "gpt-4.1")
     answer = agent.query(question)
 
     if answer and len(answer) > 0:

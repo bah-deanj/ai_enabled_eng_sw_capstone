@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
@@ -17,6 +18,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
+
+from app.agent.recipe_agent import RecipeRAGAgent
+
 
 app = FastAPI(title="Recipe App API")
 
@@ -163,6 +167,13 @@ class RecipeResponse(BaseModel):
     class Config:
         orm_mode = True
 
+class RAGRecipeSearchRequest(BaseModel):
+    ingredients: str
+    num_recipes: Optional[int] = 3  # optional, default to 3
+
+class RAGRecipeSearchResponse(BaseModel):
+    results: List[RecipeBase]
+
 
 # ---------------------- #
 # ENDPOINTS              #
@@ -295,6 +306,41 @@ def get_recipe(recipe_id: int, db: Session = Depends(get_db)):
         ingredients=ingredients
     )
 
+@app.post("/recipes/rag_search/", response_model=RAGRecipeSearchResponse)
+def rag_recipe_search(request: RAGRecipeSearchRequest, db: Session = Depends(get_db)):
+    """
+    Search for recipes on the internet using a Retrieval-Augmented Generation (RAG) agent.
+    Leverages the RecipeRAGAgent from app/agent/recipe_agent.py.
+    """
+    agent = RecipeRAGAgent()
+    try:
+        results = agent.query(ingredients=request.ingredients, num_recipes=request.num_recipes)
+        # Store the results in the database
+        # For each result, check if it already exists (by title and user_id=0), if not, add as a Recipe with user_id=0
+        for res in results:
+            title = res.get("title")
+            description = res.get("description", "")
+            instructions = res.get("instructions", "")
+            ingredients = res.get("ingredients", [])
+            # Serialize ingredients as JSON string
+            ingredients_json = json.dumps(ingredients)
+            # Check if recipe already exists (by title and user_id=0)
+            existing = db.query(Recipe).filter_by(title=title, user_id=0).first()
+            if not existing:
+                db_recipe = Recipe(
+                    user_id=0,
+                    title=title,
+                    description=description,
+                    instructions=instructions,
+                    ingredients=ingredients_json,
+                    created_at=datetime.utcnow()
+                )
+                db.add(db_recipe)
+                db.commit()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"RAG search failed: {str(e)}")
+    return RAGRecipeSearchResponse(results=results)
+
 # User favorites endpoints
 @app.post("/users/{user_id}/favorites/{recipe_id}", status_code=status.HTTP_201_CREATED)
 def add_favorite(user_id: int, recipe_id: int, db: Session = Depends(get_db)):
@@ -334,7 +380,7 @@ def list_favorites(user_id: int, db: Session = Depends(get_db)):
 
 # ---------------------- #
 # To run:
-# uvicorn main:app --reload
+# uvicorn app.main:app --reload
 # ---------------------- #
 
 # Export Base for testing

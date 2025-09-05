@@ -42,11 +42,15 @@ def fetch_recipes_node(state: RecipeAgentState) -> RecipeAgentState:
 
     question = f"""
         Find the {num_recipes} best recipes to make with the ingredients below.
-        Output the recipes as a valid JSON array with each recipe containing the following keys:
+        Output the recipes as a valid JSON array containing each recipe
+        Ensure each recipe contains the following keys:
         - 'title' - The title of the recipe
-        - 'link' - The url link to the recipe
+        - 'instructions' - The instructions for the recipe
         - 'description' - A brief but detailed description of the recipe
         - 'ingredients' - A list of ingredients for the recipe
+        - Ingredients should also have the following keys:
+            - 'name' - The name of the ingredient
+            - 'quantity' - The quantity of the ingredient
 
         Ingredients:{ingredients}
     """
@@ -120,11 +124,11 @@ def create_recipe_agent():
     rag_agent = agent_graph.compile()
     return rag_agent
 
-class RecipeRAGAgent(RAGAgent):
+class RecipeRAGAgent:
     def __init__(self, model_name="gpt-4.1"):
         ingredients = "apples, banannas, mangos"
 
-        agent = RAGAgent(get_recipe_knowledge(), create_recipe_agent(), model_name = "gpt-4.1")
+        self.agent = RAGAgent(get_recipe_knowledge(), create_recipe_agent(), model_name = "gpt-4.1")
         num_recipes = 3
 
         role_prompt = f"""You are a professional chef that suggests recipes based on web search results and a provided list of ingredients.
@@ -134,7 +138,7 @@ class RecipeRAGAgent(RAGAgent):
 
         self.initial_recipe_state = RecipeAgentState(
             cook_agent=cook_agent,
-            coding_agent=agent.agentInfo,
+            coding_agent=self.agent.agentInfo,
             ingredients=ingredients,
             num_recipes=num_recipes,
             code_files=[],
